@@ -1,1 +1,433 @@
-<h1>Minha Atividade</h1>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade: Marketing Digital - Aula 25</title>
+    <style>
+        /* Configurações de Fundo e Layout */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c20 0%, #15102a 50%, #241442 100%);
+            background-attachment: fixed;
+            color: #f1f1f1;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+        }
+
+        /* Alerta de entrega no topo */
+        .alerta-entrega {
+            background: rgba(255, 165, 0, 0.15);
+            border: 1px solid rgba(255, 165, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 25px;
+            color: #ffd07b;
+            font-size: 0.95rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Cabeçalho Principal */
+        .header-card {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-card h2 {
+            margin: 0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #00f2fe;
+        }
+
+        .header-card h1 {
+            margin: 10px 0;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .header-card p {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #e0e0e0;
+            opacity: 0.9;
+        }
+
+        /* Efeito de Transparência (Glassmorphism) para os Blocos */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            color: #00f2fe;
+            margin-top: 0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Formulário de Identificação do Aluno */
+        .grid-inputs {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .grid-inputs { grid-template-columns: 1fr; }
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-size: 0.85rem;
+            color: #b3b3b3;
+            font-weight: 600;
+        }
+
+        .input-group input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 12px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: #00f2fe;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+        }
+
+        /* Questões com Marcar X */
+        .questao {
+            margin-bottom: 30px;
+        }
+
+        .questao-titulo {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .opcoes {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .opcao-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .opcao-label:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Customização do botão de rádio (Marcar X) */
+        .opcao-label input[type="radio"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            outline: none;
+            transition: all 0.2s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .opcao-label input[type="radio"]:checked {
+            border-color: #00f2fe;
+            background: rgba(0, 242, 254, 0.1);
+        }
+
+        .opcao-label input[type="radio"]:checked::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            background: #00f2fe;
+            border-radius: 50%;
+        }
+
+        .opcao-label:has(input[type="radio"]:checked) {
+            background: rgba(0, 242, 254, 0.05);
+            border-color: rgba(0, 242, 254, 0.3);
+        }
+
+        /* Botão Salvar em PDF */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .btn-pdf {
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            color: #0f0c20;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 242, 254, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-pdf:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.6);
+        }
+
+        /* CONFIGURAÇÃO EXCLUSIVA DE IMPRESSÃO (PDF) */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+                padding: 0;
+            }
+            .alerta-entrega, .btn-container, .opcao-label input[type="radio"]::before {
+                display: none !important; /* Esconde os alertas e botões no PDF */
+            }
+            .glass-card {
+                background: transparent !important;
+                border: 1px solid #ddd !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+            }
+            .header-card {
+                background: #f0f0f0 !important;
+                color: black !important;
+                border: 1px solid #ccc !important;
+                box-shadow: none !important;
+            }
+            .header-card h1, .header-card h2, .header-card p {
+                color: black !important;
+            }
+            .input-group input {
+                background: transparent !important;
+                border: none !important;
+                border-bottom: 1px solid black !important;
+                color: black !important;
+                border-radius: 0 !important;
+            }
+            .opcao-label {
+                background: transparent !important;
+                border: 1px solid #eee !important;
+                color: black !important;
+            }
+            /* Desenha um X visual nas opções marcadas ao imprimir */
+            .opcao-label input[type="radio"]:checked {
+                background: black !important;
+                border-color: black !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Alerta de Entrega -->
+    <div class="alerta-entrega">
+        📌 <strong>Para entregar no Classroom:</strong> preencha a atividade, clique em <strong>Salvar/Imprimir em PDF</strong> no final da página, escolha a opção "Salvar como PDF" e envie o arquivo gerado.
+    </div>
+
+    <!-- Cabeçalho Principal -->
+    <div class="header-card">
+        <h2>Aula - 25</h2>
+        <h1>O que é Marketing Digital</h1>
+        <p>Atividades de fixação - Parte 1 e 2</p>
+    </div>
+
+    <!-- Identificação Escolar -->
+    <div class="glass-card">
+        <div class="section-title">📝 Identificação do Aluno</div>
+        <div class="grid-inputs">
+            <div class="input-group">
+                <label>Nome Completo</label>
+                <input type="text" placeholder="Digite seu nome completo">
+            </div>
+            <div class="input-group">
+                <label>Turma</label>
+                <input type="text" placeholder="Ex: 3º Ano A">
+            </div>
+            <div class="input-group">
+                <label>Data</label>
+                <input type="date">
+            </div>
+        </div>
+    </div>
+
+    <!-- Bloco do Questionário -->
+    <div class="glass-card">
+        <div class="section-title">❓ Questões de Multipla Escolha</div>
+
+        <!-- Questão 1 -->
+        <div class="questao">
+            <div class="questao-titulo">1) Qual alternativa se caracteriza como uma vantagem do marketing digital em comparação ao marketing tradicional?</div>
+            <div class="opcoes">
+                <label class="opcao-label"><input type="radio" name="q1"> A) Maior alcance global</label>
+                <label class="opcao-label"><input type="radio" name="q1"> B) Menos interatividade com clientes</label>
+                <label class="opcao-label"><input type="radio" name="q1"> C) Resultados menos mensuráveis</label>
+                <label class="opcao-label"><input type="radio" name="q1"> B) Público-alvo mais geral</label>
+            </div>
+        </div>
+
+        <!-- Questão 2 -->
+        <div class="questao">
+            <div class="questao-titulo">2) O objetivo principal do SEO (Search Engine Optimization) é:</div>
+            <div class="opcoes">
+                <label class="opcao-label"><input type="radio" name="q2"> A) Comprar anúncios nos motores de busca</label>
+                <label class="opcao-label"><input type="radio" name="q2"> B) Melhorar a posição do site nos resultados de busca sem pagar por clique</label>
+                <label class="opcao-label"><input type="radio" name="q2"> C) Criar catálogos de produtos no WhatsApp</label>
+                <label class="opcao-label"><input type="radio" name="q2"> D) Agendar publicações nas redes sociais</label>
+            </div>
+        </div>
+
+        <!-- Questão 3 -->
+        <div class="questao">
+            <div class="questao-titulo">3) A principal diferença entre SEM e SEO é que o SEM:</div>
+            <div class="opcoes">
+                <label class="opcao-label"><input type="radio" name="q3"> A) Não usa motores de busca</label>
+                <label class="opcao-label"><input type="radio" name="q3"> B) Serve apenas para redes sociais</label>
+                <label class="opcao-label"><input type="radio" name="q3"> C) Envolve a compra de anúncios pagos nos resultados de busca</label>
+                <label class="opcao-label"><input type="radio" name="q3"> D) É sempre gratuito</label>
+            </div>
+        </div>
+
+        <!-- Questão 4 -->
+        <div class="questao">
+            <div class="questao-titulo">4) Blogs, vídeos, e-books e infográficos são exemplos de formatos usados no:</div>
+            <div class="opcoes">
+                <label class="opcao-label"><input type="radio" name="q4"> A) Marketing de conteúdo</label>
+                <label class="opcao-label"><input type="radio" name="q4"> B) SEO técnico</label>
+                <label class="opcao-label"><input type="radio" name="q4"> C) Marketing tradicional impresso</label>
+                <label class="opcao-label"><input type="radio" name="q4"> D) E-mail transacional</label>
+            </div>
+        </div>
+
+        <!-- Questão 5 -->
+        <div class="questao">
+            <div class="questao-titulo">5) No WhatsApp Business, o recurso que funciona como uma "vitrine virtual" da loja é:</div>
+            <div class="opcoes">
+                <label class="opcao-label"><input type="radio" name="q5"> A) O status</label>
+                <label class="opcao-label"><input type="radio" name="q5"> B) As figurinhas</label>
+                <label class="opcao-label"><input type="radio" name="q5"> C) O catálogo de produtos</label>
+                <label class="opcao-label"><input type="radio" name="q5"> D) As chamadas de vídeo</label>
+            </div>
+        </div>
+
+        <!-- Questão 6 -->
+        <div class="questao">
+            <div class="questao-titulo">6) Atingir pessoas com base em dados demográficos, comportamentais e de interesse é a capacidade de:</div>
+            <div class="opcoes">
+                <label class="opcao-label"><input type="radio" name="q6"> A) Impressão</label>
+                <label class="opcao-label"><input type="radio" name="q6"> B) Segmentação</label>
+                <label class="opcao-label"><input type="radio" name="q6"> C) Tradição</label>
+                <label class="opcao-label"><input type="radio" name="q6"> D) Saturação</label>
+            </div>
+        </div>
+
+        <!-- Questão 7 -->
+        <div class="questao">
+            <div class="questao-titulo">7) A comunicação bidirecional em tempo real entre marcas e consumidores é chamada de:</div>
+            <div class="opcoes">
+                <label class="opcao-label"><input type="radio" name="q7"> A) Interatividade</label>
+                <label class="opcao-label"><input type="radio" name="q7"> B) Unilateralidade</label>
+                <label class="opcao-label"><input type="radio" name="q7"> C) Publicidade impressa</label>
+                <label class="opcao-label"><input type="radio" name="q7"> D) Audiência passiva</label>
+            </div>
+        </div>
+
+        <!-- Questão 8 -->
+        <div class="questao">
+            <div class="questao-titulo">8) Cliques, conversões e engajamento são exemplos de:</div>
+            <div class="opcoes">
+                <label class="opcao-label"><input type="radio" name="q8"> A) Formatos de anúncio</label>
+                <label class="opcao-label"><input type="radio" name="q8"> B) Métricas para medir campanhas em tempo real</label>
+                <label class="opcao-label"><input type="radio" name="q8"> C) Tipos de rede social</label>
+                <label class="opcao-label"><input type="radio" name="q8"> D) Ferramentas de design</label>
+            </div>
+        </div>
+
+        <!-- Questão 9 -->
+        <div class="questao">
+            <div class="questao-titulo">9) Os visitantes que chegam ao site pela busca, SEM que a empresa pague por anúncio, formam o chamado tráfego:</div>
+            <div class="opcoes">
+                <label class="opcao-label"><input type="radio" name="q9"> A) Pago</label>
+                <label class="opcao-label"><input type="radio" name="q9"> B) Orgânico</label>
+                <label class="opcao-label"><input type="radio" name="q9"> C) Offline</label>
+                <label class="opcao-label"><input type="radio" name="q9"> D) Patrocinado</label>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="questao">
+            <div class="questao-titulo">10) A ferramenta gratuita do Google usada para analisar o comportamento dos visitantes de um site é o:</div>
+            <div class="opcoes">
+                <label class="opcao-label"><input type="radio" name="q10"> A) Google Analytics</label>
+                <label class="opcao-label"><input type="radio" name="q10"> B) Google Tradutor</label>
+                <label class="opcao-label"><input type="radio" name="q10"> C) Canva</label>
+                <label class="opcao-label"><input type="radio" name="q10"> D) Meta Business Suite</label>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Botão de Impressão -->
+    <div class="btn-container">
+        <button class="btn-pdf" onclick="window.print()">🖨️ Salvar / Imprimir em PDF</button>
+    </div>
+
+</div>
+
+</body>
+</html>
