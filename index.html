@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atividade: Marketing Digital - Aula 25</title>
     <style>
-        /* Configurações de Fundo e Layout */
+        /* Configurações de Fundo e Layout na Tela */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #0f0c20 0%, #15102a 50%, #241442 100%);
@@ -16,6 +16,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
 
         .container {
@@ -46,6 +48,8 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
 
         .header-card h2 {
@@ -70,16 +74,18 @@
             opacity: 0.9;
         }
 
-        /* Efeito de Transparência (Glassmorphism) para os Blocos */
+        /* Efeito de Transparência (Glassmorphism) */
         .glass-card {
             background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 16px;
             padding: 30px;
             margin-bottom: 25px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
 
         .section-title {
@@ -92,7 +98,7 @@
             gap: 10px;
         }
 
-        /* Formulário de Identificação do Aluno */
+        /* Formulário de Identificação */
         .grid-inputs {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
@@ -123,18 +129,14 @@
             color: white;
             font-size: 1rem;
             outline: none;
-            transition: all 0.3s ease;
         }
 
-        .input-group input:focus {
-            border-color: #00f2fe;
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
-        }
-
-        /* Questões com Marcar X */
+        /* Questões */
         .questao {
             margin-bottom: 30px;
+            /* Força a questão (pergunta + opções) a ficar sempre na mesma página no PDF */
+            page-break-inside: avoid; 
+            break-inside: avoid;
         }
 
         .questao-titulo {
@@ -159,23 +161,17 @@
             padding: 14px;
             border-radius: 10px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
 
-        .opcao-label:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        /* Customização do botão de rádio (Marcar X) */
         .opcao-label input[type="radio"] {
             appearance: none;
+            -webkit-appearance: none;
             width: 20px;
             height: 20px;
             border: 2px solid rgba(255, 255, 255, 0.4);
             border-radius: 50%;
-            outline: none;
-            transition: all 0.2s ease;
             position: relative;
             display: flex;
             align-items: center;
@@ -184,21 +180,22 @@
         }
 
         .opcao-label input[type="radio"]:checked {
-            border-color: #00f2fe;
-            background: rgba(0, 242, 254, 0.1);
+            border-color: #00f2fe !important;
+            background: rgba(0, 242, 254, 0.2) !important;
         }
 
         .opcao-label input[type="radio"]:checked::before {
             content: "";
             width: 10px;
             height: 10px;
-            background: #00f2fe;
+            background: #00f2fe !important;
             border-radius: 50%;
+            display: block;
         }
 
         .opcao-label:has(input[type="radio"]:checked) {
-            background: rgba(0, 242, 254, 0.05);
-            border-color: rgba(0, 242, 254, 0.3);
+            background: rgba(0, 242, 254, 0.05) !important;
+            border-color: rgba(0, 242, 254, 0.3) !important;
         }
 
         /* Botão Salvar em PDF */
@@ -218,55 +215,77 @@
             border-radius: 30px;
             cursor: pointer;
             box-shadow: 0 5px 20px rgba(0, 242, 254, 0.4);
-            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .btn-pdf:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.6);
+        /* =========================================================
+           REGRAS DE FORMATAÇÃO EXCLUSIVAS PARA O PADRÃO A4 (IMPRESSÃO)
+           ========================================================= */
+        @page {
+            size: A4;
+            margin: 15mm 15mm 15mm 15mm; /* Margens limpas nas bordas do papel */
         }
 
-        /* CONFIGURAÇÃO EXCLUSIVA DE IMPRESSÃO (PDF) */
         @media print {
+            /* Oculta elementos desnecessários na folha */
+            .alerta-entrega, .btn-container {
+                display: none !important;
+            }
+
             body {
-                background: white !important;
-                color: black !important;
-                padding: 0;
+                background: #0f0c20 !important; /* Fixa o fundo escuro original */
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100%;
             }
-            .alerta-entrega, .btn-container, .opcao-label input[type="radio"]::before {
-                display: none !important; /* Esconde os alertas e botões no PDF */
+
+            .container {
+                max-width: 100% !important;
+                width: 100% !important;
             }
-            .glass-card {
-                background: transparent !important;
-                border: 1px solid #ddd !important;
-                box-shadow: none !important;
-                page-break-inside: avoid;
-            }
+
+            /* Compacta o cabeçalho para ocupar menos espaço vertical */
             .header-card {
-                background: #f0f0f0 !important;
-                color: black !important;
-                border: 1px solid #ccc !important;
+                padding: 20px !important;
+                margin-bottom: 15px !important;
+                border-radius: 12px !important;
+            }
+
+            .header-card h1 {
+                font-size: 1.8rem !important;
+            }
+
+            /* Ajusta os blocos transparentes para o tamanho do papel */
+            .glass-card {
+                padding: 20px !important;
+                margin-bottom: 15px !important;
+                border-radius: 12px !important;
+                background: rgba(255, 255, 255, 0.04) !important;
                 box-shadow: none !important;
             }
-            .header-card h1, .header-card h2, .header-card p {
-                color: black !important;
+
+            /* Reduz levemente as fontes e espaçamentos das questões para caber mais por folha */
+            .questao {
+                margin-bottom: 18px !important;
             }
-            .input-group input {
-                background: transparent !important;
-                border: none !important;
-                border-bottom: 1px solid black !important;
-                color: black !important;
-                border-radius: 0 !important;
+
+            .questao-titulo {
+                font-size: 1rem !important;
+                margin-bottom: 8px !important;
             }
+
+            .opcoes {
+                gap: 6px !important;
+            }
+
             .opcao-label {
-                background: transparent !important;
-                border: 1px solid #eee !important;
-                color: black !important;
+                padding: 8px 12px !important;
+                border-radius: 6px !important;
+                font-size: 0.9rem !important;
             }
-            /* Desenha um X visual nas opções marcadas ao imprimir */
-            .opcao-label input[type="radio"]:checked {
-                background: black !important;
-                border-color: black !important;
+
+            .opcao-label input[type="radio"] {
+                width: 16px !important;
+                height: 16px !important;
             }
         }
     </style>
@@ -277,7 +296,7 @@
 
     <!-- Alerta de Entrega -->
     <div class="alerta-entrega">
-        📌 <strong>Para entregar no Classroom:</strong> preencha a atividade, clique em <strong>Salvar/Imprimir em PDF</strong> no final da página, escolha a opção "Salvar como PDF" e envie o arquivo gerado.
+        📌 <strong>Para entregar no Classroom:</strong> preencha a atividade, clique em <strong>Salvar/Imprimir em PDF</strong> no final da página. Na tela de impressão, clique em <em>Mais definições</em> e ative a caixinha <strong>"Imagens em segundo plano"</strong> para salvar com o design correto!
     </div>
 
     <!-- Cabeçalho Principal -->
@@ -317,7 +336,7 @@
                 <label class="opcao-label"><input type="radio" name="q1"> A) Maior alcance global</label>
                 <label class="opcao-label"><input type="radio" name="q1"> B) Menos interatividade com clientes</label>
                 <label class="opcao-label"><input type="radio" name="q1"> C) Resultados menos mensuráveis</label>
-                <label class="opcao-label"><input type="radio" name="q1"> B) Público-alvo mais geral</label>
+                <label class="opcao-label"><input type="radio" name="q1"> D) Público-alvo mais geral</label>
             </div>
         </div>
 
